@@ -8,7 +8,7 @@ We propose [**CompAct** (**Comp**ressing Retrieved Documents **Act**ively for Qu
 
 ![](assets/framework.jpg)
 
-## updates
+## Updates
 [July 16. 2024] We have released the code and data.
 
 ## Installation
@@ -91,11 +91,11 @@ for i, iteration in enumerate(example['iterations']):
 You can download our model from [huggingface](https://huggingface.co/cwyoon99/CompAct-7b).
 
 ### Data
-We conducted experiments on 5 question-answering benchmark datasets: [HotpotQA](https://github.com/hotpotqa/hotpot), [MusiQue](https://github.com/StonyBrookNLP/musique), [2wikimultihopQA](https://github.com/Alab-NII/2wikimultihop), [Natural Question](https://github.com/google-research-datasets/natural-questions) (NQ), and [TriviaQA](https://github.com/mandarjoshi90/triviaqa).
+We conducted experiments on 5 question-answering benchmark datasets: [HotpotQA](https://github.com/hotpotqa/hotpot), [MuSiQue](https://github.com/StonyBrookNLP/musique), [2wikimultihopQA](https://github.com/Alab-NII/2wikimultihop) (2WikiMQA), [Natural Question](https://github.com/google-research-datasets/natural-questions) (NQ), and [TriviaQA](https://github.com/mandarjoshi90/triviaqa) (TQA).
 
 Required data can be downloaded from [this Google Drive](https://drive.google.com/drive/folders/1lTz-hmb2inmU9KswLfkHag5-qRxTVujy?usp=sharing). Place it in the ```.data``` folder.
-* **retrieval**: instances with retrieved results for each datasets using different retrievers.
-* **preprocessed**: 28k preprocessed instances from HotpotQA for training
+* **retrieval**: instances with retrieved results for each datasets using different retrievers. 
+* **preprocessed**: 28k preprocessed instances from HotpotQA train set
 * **demos**: Few-shot examples for answering questions.
 
 ## Inference
@@ -103,7 +103,7 @@ After setting up your environment and preparing the data, you can compress retri
 
 For convenience, you can easliy deploy our model from Huggingface. If you wish to fine-tune the base model, Please refer to the [Training](#training) section.
 
-We also support batch decoding options to accelerate the infernce. 
+We also support batch decoding options (```--batch_decoding, --batch_size```) to accelerate the infernce
 
 ```bash
 CUDA_VISIBLE_DEVICES=0
@@ -149,6 +149,31 @@ CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python run_prompt.py \
 ```
 
 ## Training
+We apply Supervised Fine-Tuning (SFT) using only the subset of [HotpotQA](https://github.com/hotpotqa/hotpot). You may change specific hyperparameters and training arguments in ```./alignment-handbook/recipes/mistral-7b-instruct-v0.2/sft/config_full.yaml```
+
+For more information about data and training details, Please refer to our paper.
+
+```bash
+cd CompAct/alignment-handbook
+
+export CUDA_VISIBLE_DEVICES="[GPU_ID]" # e.g. 0,1,2,3
+export n_processes="[N_GPU]" # e.g. 4
+
+# ./scripts/run_sft.sh
+CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES ACCELERATE_LOG_LEVEL=info accelerate launch --config_file recipes/accelerate_configs/deepspeed_zero3.yaml --num_processes $n_processes scripts/run_sft.py recipes/mistral-7b-instruct-v0.2/sft/config_full.yaml
+
+```
+
+<!-- ## Etc
+
+### Retriever (Contriever)
+If you want to deploy
+we use [Contriever](https://github.com/facebookresearch/contriever) fine-tuned on [MS-MARCO](https://microsoft.github.io/msmarco/), as our default retrieval system (on the 2018 Wikipedia corpus).
+```bash
+# https://github.com/facebookresearch/contriever?tab=readme-ov-file#evaluation
+wget https://dl.fbaipublicfiles.com/contriever/embeddings/contriever/wikipedia_embeddings.tar
+wget https://dl.fbaipublicfiles.com/contriever/embeddings/contriever-msmarco/wikipedia_embeddings.tar -->
+<!-- ``` -->
 
 ## Citation
 ```

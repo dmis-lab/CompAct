@@ -52,9 +52,9 @@ logger = logging.getLogger(__name__)
 
 def main():
     PRE_DIR = ""
-    train_file_path = f"{PRE_DIR}/data/preprocessed/train_sft_balanced_28824.json"
-    test_file_path = f"{PRE_DIR}/data/preprocessed/test_sft_balanced_28824.json"
-    cache_dir = f"{PRE_DIR}/cache"
+    train_file_path = f"../data/preprocessed/train_sft_balanced_28824.json"
+    test_file_path = f"../data/preprocessed/test_sft_balanced_28824.json"
+    cache_dir = f"../cache"
 
 
     parser = H4ArgumentParser((ModelArguments, DataArguments, SFTConfig))
