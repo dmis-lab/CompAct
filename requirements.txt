@@ -1,0 +1,6 @@
+wandb
+numpy
+pandas
+openai==1.35.4
+anthropic
+google-generativeai
