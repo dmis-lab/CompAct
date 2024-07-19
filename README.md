@@ -145,7 +145,7 @@ CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python run_prompt.py \
     --segment_size $segment_size \
     --max_iteration $iter \
 ```
-> If you want to use your self-trained model, Specify the following arguments:   
+> If you want to use your self-trained model, specify the following arguments:   
 > --compressor_dir e.g. $PRE_DIR/data/experiments/train/   
 > --compressor_name_or_path e.g. "[name of trained model]"   
 > --checkpoint e.g. checkpoint-378
