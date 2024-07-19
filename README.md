@@ -134,11 +134,9 @@ CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python run_prompt.py \
     --data_path $PRE_DIR/data/retrieval/$ret"_"$task/$split.json \
     --fshot \
     --fshot_path $PRE_DIR/data/demos/fshot_$task.json \
-    --compressor_dir $PRE_DIR/data/experiments/train/ \
     --compress_output_dir $PRE_DIR/data/experiments/compress/$ret"_"$task/$split \
     --read_output_dir $PRE_DIR/data/experiments/test/$ret"_"$task/$split \
     --compressor_name_or_path $comp_name \
-    --checkpoint $checkpoint \
     --model_name_or_path $model_name \
     --cache_dir $cache_dir \
     --batch_decoding \
@@ -147,6 +145,10 @@ CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES python run_prompt.py \
     --segment_size $segment_size \
     --max_iteration $iter \
 ```
+> If you want to use your self-trained model, Specify the following arguments:   
+> --compressor_dir e.g. $PRE_DIR/data/experiments/train/   
+> --compressor_name_or_path e.g. "[name of trained model]"   
+> --checkpoint e.g. checkpoint-378
 
 ## Training
 We apply Supervised Fine-Tuning (SFT) using only the subset of [HotpotQA](https://github.com/hotpotqa/hotpot). You may change specific hyperparameters and training arguments in ```./alignment-handbook/recipes/mistral-7b-instruct-v0.2/sft/config_full.yaml```
