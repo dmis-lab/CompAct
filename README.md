@@ -1,4 +1,4 @@
-# CompAct: Compressing Retrieved Documents Actively for Question Answering
+# CompAct: Compressing Retrieved Documents Actively for Question Answering (EMNLP 2024)
 
 We propose [**CompAct** (**Comp**ressing Retrieved Documents **Act**ively for Question Answering)](https://arxiv.org/abs/2407.09014), a novel framework that employs an active strategy for compressing extensive documents. **CompAct** dynamically preserves query-related contexts, focusing on the integration of information across documents. See our [paper](https://arxiv.org/abs/2407.09014) for more details.
 
